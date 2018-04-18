@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>index</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/myStyle.css" rel="stylesheet">
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="main-header" style="background-image: url(images/head-bg.jpg);">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="" class="tx">
+                    <img src="images/tx.jpg" alt="">
+                </a>
+                <h4>小环境</h4>
+                <a href="" class="item-jf">
+                    <img src="images/icon-jf.png" alt=""> <span>100</span>积分
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4">
+                <a href="">
+                    <img src="images/nav-gc.png" alt="">
+                    <h5>公厕革命</h5>
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <a href="">
+                    <img src="images/nav-xf.png" alt="">
+                    <h5>消防卫士</h5>
+                </a>
+            </div>
+            <div class="col-xs-4">
+                <a href="">
+                    <img src="images/nav-hb.png" alt="">
+                    <h5>环保天使</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tips">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="tips-title">
+                <img src="images/icon-gs.png" alt="">公示
+            </div>
+            <ul id="myTab" class="nav nav-tabs">
+                <li class="active"><a href="#hb" data-toggle="tab">公益环保</a></li>
+                <li><a href="#jb" data-toggle="tab">举报结果</a></li>
+                <li><a href="#cj" data-toggle="tab">抽奖结果</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="hb">
+                    <ul class="tip-list">
+
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="jb">
+                    <ul class="tip-list">
+
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="cj">
+                    <ul class="tip-list">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            type:"POST",
+            url:"index.json",
+            dataType:"json",
+            async:false,
+            success:function(data){
+                $.each(data,function(i,n){
+                    var str="<li class='clearfix'><a href=''><img src='"+ n.image+"' class='tip-img img-rounded' >" +
+                            "<strong class='title show1'>"+ n.title+"</strong>"+
+                                    "<span class='s-time'>举报时间:"+ n.stime+"</span>";
+                    var str1="<span class='s-time'>处理时间:"+ n.etime+"</span>";
+                    var str2=" <label class='cl'>未处理</label></a></li>";
+                    if(n.etime == ""){
+                        $(".tip-list").append(str+str2);
+                    }else {
+                        str2=" <label class='cl ycl'>已处理</label></a></li>";
+                        $(".tip-list").append(str+str1+str2);
+                    }
+                });
+
+            }
+        })
+    })
+</script>
+</body>
+</html>
